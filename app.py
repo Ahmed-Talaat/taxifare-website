@@ -8,7 +8,6 @@ import pydeck as pdk
 # NY Taxi Fare Predictor
 '''
 
-mapbox_api_key = "pk.eyJ1Ijoia3Jva3JvYiIsImEiOiJja2YzcmcyNDkwNXVpMnRtZGwxb2MzNWtvIn0.69leM_6Roh26Ju7Lqb2pwQ"
 
 with st.form("input_form"):
     pickup_date = st.date_input('Pickup date', value= datetime.now())
@@ -51,7 +50,7 @@ with st.form("input_form"):
             directions_url = f"https://api.mapbox.com/directions/v5/mapbox/driving/{params['pickup_longitude']},{params['pickup_latitude']};{params['dropoff_longitude']},{params['dropoff_latitude']}"
             directions_params = {
                 "geometries": "geojson",
-                "access_token": mapbox_api_key
+                "access_token": st.secrets.mapbox_api_key
             }
             directions_response = requests.get(directions_url, params=directions_params)
             if directions_response.status_code == 200:
@@ -98,7 +97,7 @@ with st.form("input_form"):
                     map_style='mapbox://styles/mapbox/light-v9',
                     initial_view_state=view_state,
                     layers=[route_layer, points_layer],
-                    api_keys={'mapbox': mapbox_api_key}
+                    api_keys={'mapbox': st.secrets.mapbox_api_key}
                 )
 
                 # Display map
