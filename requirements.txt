@@ -1,1 +1,5 @@
 streamlit
+datetime
+requests
+pandas
+pydeck
